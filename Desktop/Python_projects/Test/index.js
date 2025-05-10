@@ -13,6 +13,10 @@ CREATE TABLE IF NOT EXISTS users (
 )
 `)
 
+app.get('/', (req, res) => { 
+    res.send('<h1>Hello, Nino!</h1>') 
+})
+
 app.get('/req', (req, res) => {
     res.send('<h1>Out</h1>')
 })
@@ -39,5 +43,5 @@ app.get('/req', (req, res) => {
 
 app.listen(3000, () => {
     console.log('Server running on port 3000')
-    console.log('https://localhost:3000/req')
+    console.log('https://localhost:3000/')
 })
