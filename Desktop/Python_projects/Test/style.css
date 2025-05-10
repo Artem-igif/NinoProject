@@ -1,0 +1,38 @@
+* 
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root 
+{
+    --bg-color: #f0f0f0;
+    --div-color: #f1f1f1;
+}
+
+body 
+{
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-color);
+}
+
+body div
+{
+    background-color: var(--div-color);
+    color: rgb(30, 30, 30);
+    /* --color: #909999; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div button
+{
+    color: white;
+    background-color: rgb(72, 255, 0);
+    width: 50%;
+}
