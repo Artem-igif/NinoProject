@@ -17,25 +17,25 @@ app.get('/req', (req, res) => {
     res.send('<h1>Out</h1>')
 })
 
-app.post('/req', (req, res) => {
-    const { name } = req.body
+// app.post('/req', (req, res) => {
+//     const { name } = req.body
 
-    // if (!name) {
-    //     return res.status(400).json({
-    //         message: 'Please provide a name'
-    //     })
-    // }
+//     // if (!name) {
+//     //     return res.status(400).json({
+//     //         message: 'Please provide a name'
+//     //     })
+//     // }
 
-    const sql = "INSERT INTO users (name) VALUES (?)"
-    const result = db.prepare(sql).run(name)
-    res.send('<h1>Out</h1>')
+//     const sql = "INSERT INTO users (name) VALUES (?)"
+//     const result = db.prepare(sql).run(name)
+//     res.send('<h1>Out</h1>')
 
-    // if (result.changes > 0) {
-    //     res.status(200).json({
-    //         message: "User added succefully"
-    //     })
-    // }
-})
+//     // if (result.changes > 0) {
+//     //     res.status(200).json({
+//     //         message: "User added succefully"
+//     //     })
+//     // }
+// })
 
 app.listen(3000, () => {
     console.log('Server running on port 3000')
