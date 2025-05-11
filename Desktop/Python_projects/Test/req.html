@@ -6,6 +6,40 @@
     <title>Reqistration</title>
 </head>
 <body>
-    
+    <form id="UserForm">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        document.getElementById('UserForm').addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            const formData = {
+                name: e.target.name.value,
+                email: e.target.email.value
+            }
+
+            try {
+                const response = await fetch('http://localhost:3000/req', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+
+                if (!response.ok) throw new Error('Network error')
+
+                const data = await response.json()
+                console.log('Success: ', data)
+                alert('User created successfully!')
+                e.target.reset()
+            } catch (e) {
+                console.error('Error: ', e)
+                alert('Error submitting form')
+            }
+        })
+    </script>
 </body>
 </html>

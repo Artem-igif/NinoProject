@@ -5,11 +5,19 @@ const app = express();
 const db = new Database('./users.db');
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Headers', '*')
+    next()
+    
+})
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+    email TEXT NOT NULL
   )
 `);
 
@@ -22,8 +30,7 @@ app.get('/req', (req, res) => {
 });
 
 app.post('/req', (req, res) => {
-    const { name } = req.body;
-
+    const { name } = req.body
     if (!name) {
         return res.status(400).json({
             message: 'Please provide a name'
@@ -31,7 +38,7 @@ app.post('/req', (req, res) => {
     }
 
     try {
-        const sql = "INSERT INTO users (name) VALUES (?)";
+        const sql = "INSERT INTO users (name) VALUES (?, ?)";
         const result = db.prepare(sql).run(name);
         
         if (result.changes > 0) {
