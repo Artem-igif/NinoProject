@@ -46,7 +46,8 @@ app.post('/req', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-    const { email, password } = req.body
+    const email = req.body.email
+    const password = req.body.password
     console.log('Запрос: ', req.body)
 
     const user = db.prepare('SELECT * FROM users WHERE email = ? AND password = ?').get(email, password)

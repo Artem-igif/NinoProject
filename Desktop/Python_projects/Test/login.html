@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+    <style>
+          *
+        {
+            margin: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        body 
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            min-width: 50vh;
+        }
+
+        form 
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #aaa;
+            border-radius: 10px;
+            width: 100%;
+            height: 100%;
+        }
+
+        div 
+        {
+            position: relative;
+            display: block;
+            top: 50%;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            color: #444;
+        }
+
+        div button 
+        {
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            background-color: #00ff00;
+            color: #fff;
+        }
+
+        div input 
+        {
+            width: 100%;
+            border-radius: 10px;
+            border: solid 0.5px #f0f0f0;
+        }
+
+        div input:focus 
+        {
+            outline: solid 1px #ffae00;
+        }
+
+        h2 
+        {
+            text-align: center;
+        }
+
+        div button, a
+        {
+            width: 100%;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            background-color: #00ff00;
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="LogInForm">
+        <div>
+            <h2>Registration</h2>
+            <input type="email" name="email" placeholder="Email" required>
+            <br />
+            <input
+             type="password" name="password" 
+             placeholder="Password" minlength="8" 
+             required>
+            <br />
+            <button type="submit">Submit</button>
+            <p><a href="req.html">Don't have a account? Sign up!</a></p>
+        </div>
+    </form>
+    <script src='script.js' type="module"></script>
+</body>
+</html>
