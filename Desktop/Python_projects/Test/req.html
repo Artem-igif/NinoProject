@@ -4,12 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reqistration</title>
+    <style>
+        *
+        {
+            margin: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        body 
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            min-width: 50vh;
+        }
+
+        form 
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #aaa;
+            border-radius: 10px;
+            width: 100%;
+            height: 100%;
+        }
+
+        div 
+        {
+            position: relative;
+            display: block;
+            top: 50%;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            color: #444;
+        }
+
+        div button, a
+        {
+            width: 100%;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            background-color: #00ff00;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        div input 
+        {
+            width: 100%;
+            border-radius: 10px;
+            border: solid 0.5px #f0f0f0;
+        }
+
+        div input:focus 
+        {
+            outline: solid 1px #ffae00;
+        }
+
+        h2 
+        {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <form id="UserForm">
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <button type="submit">Submit</button>
+        <div>
+            <h2>Registration</h2>
+            <input type="text" name="name" placeholder="Name" required minlength="3" maxlength="15">
+            <br />
+            <input type="email" name="email" placeholder='Email' required>
+            <br />
+            <input type="password" name="password" placeholder="Password" required minlength="8">
+            <button type="submit">Submit</button>
+            <p><a href="login.html">Has a account? Log in!</a></p>
+        </div>
     </form>
     <script>
         document.getElementById('UserForm').addEventListener('submit', async (e) => {
@@ -17,7 +92,8 @@
 
             const formData = {
                 name: e.target.name.value,
-                email: e.target.email.value
+                email: e.target.email.value,
+                password: e.target.password.value
             }
 
             try {
@@ -35,6 +111,7 @@
                 console.log('Success: ', data)
                 alert('User created successfully!')
                 e.target.reset()
+                window.location.href = 'home.html'
             } catch (e) {
                 console.error('Error: ', e)
                 alert('Error submitting form')

@@ -1,14 +1,24 @@
 * 
 {
-    margin: 0;
-    padding: 0;
+    margin: 10px;
+    padding: 10px;
     box-sizing: border-box;
 }
 
 :root 
 {
-    --bg-color: #f0f0f0;
-    --div-color: #f1f1f1;
+    --bg-color: #aaa;
+    --div-color: #000;
+    --radius: 10px;
+}
+
+header 
+{
+    background-color: var(--bg-color);
+    border-radius: var(--radius);
+    width: 100%;
+    text-align: center;
+    height: 100px;
 }
 
 body 
@@ -17,23 +27,34 @@ body
     min-height: 100vh;
     justify-content: center;
     align-items: center;
-    background-color: var(--bg-color);
+    flex-direction: column;
 }
 
-body div
+div
 {
-    background-color: var(--div-color);
+    background-color: var(--bg-color);
     color: rgb(30, 30, 30);
     /* --color: #909999; */
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    border-radius: var(--radius);
+    width: 100%;
+    height: 200px;
 }
 
-div button
+div a
 {
     color: white;
     background-color: rgb(72, 255, 0);
     width: 50%;
+    overflow: auto;
+    border-radius: var(--radius);
+    display: inline-flex;
+    height: 90%;
+    width: 80%;
+    font-size: 29px;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
 }
