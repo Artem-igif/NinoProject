@@ -29,7 +29,9 @@ db1.exec(`
 )
 `)
 
-console.log(db1.prepare(`SELECT * FROM exers`).all())
+if (!db1.prepare(`SELECT * FROM exers`).all()) {
+  db.exec(`INSERT INTO exers (course, name, lessons) VALUES ('web', 'Введение', 3)`)
+}
 
 app.post('/req', (req, res) => {
   console.log('Получен запрос:', req.body); // Логируем тело запроса
@@ -76,6 +78,17 @@ app.post('/login', (req, res) => {
             error: 'User not found!'
         })
     }
+})
+
+app.get('/exercices', (req, res) => {
+    const exs = db1.prepare(`SELECT * FROM exers`).all()
+
+    if (!exs) {
+        res.status(404).json({ error: 'Not Found' })
+        return;
+    }
+
+    res.status(200).json(exs)
 })
 
 app.listen(3000, () => console.log('Сервер запущен на порту 3000'));

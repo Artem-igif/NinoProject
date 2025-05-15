@@ -8,11 +8,37 @@
 </head>
 <body>
     <nav class="nav">
-        <button class="nav-button">Home</button>
-        <button class="nav-button">Courses</button>
-        <button class="nav-button">Library</button>
-        <button class="nav-button" disabled>Build</button>
-        <button class="settings nav-button"></button>
+        <button class="nav-button not-border" id="home">Home</button>
+        <button class="nav-button border" id="courses">Courses</button>
+        <button class="nav-button" id="library">Library</button>
+        <button class="nav-button border" disabled id="build">Build</button>
+        <button class="settings nav-button" id="settings">Settings</button>
     </nav>
+    <div id="container"></div>
+    <script>
+        document.getElementById('home').addEventListener('click', async () => {
+            const response = await fetch('http://localhost:3000/exercices')
+            const data = await response.json()
+            const list = [...data]
+            const container = document.getElementById('container')
+
+            if (data.error) {
+                console.log(data.error)
+            }
+
+            container.textContent = list
+              .map((el, index) => {
+                return `
+                <button id='${index}' class='play-buttons'><h2>Learn</h2></button>
+                `
+              })
+              .join('\n')
+        })
+
+        document.querySelector('.play-buttons').addEventListener('click', async (e) => {
+            const buttonId = e.target.id
+            const response = await fetch(`http://localhost:3000/exercice/${buttonId}`)
+        })
+    </script>
 </body>
 </html>
