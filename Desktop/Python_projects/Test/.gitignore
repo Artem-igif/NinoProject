@@ -1,1 +1,4 @@
 node_modules/
+# Создать файл .gitignore в корне проекта
+echo "*.db" > .gitignore
+echo "exs" >> .gitignore
