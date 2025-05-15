@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const db = new Database('./the_9users.db', { verbose: console.log }); // Логирование SQL-запросов
+const db = new Database('./users.db', { verbose: console.log }); // Логирование SQL-запросов
 
 // Создание таблицы
 db.exec(`
@@ -17,6 +17,19 @@ db.exec(`
     password TEXT 
   )
 `);
+
+const db1 = new Database('./exs.db', { verbose: console.log });
+
+db1.exec(`
+  CREATE TABLE IF NOT EXISTS exers (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    course TEXT NOT NULL,
+    name TEXT NOT NULL,
+    lessons INTEGER
+)
+`)
+
+console.log(db1.prepare(`SELECT * FROM exers`).all())
 
 app.post('/req', (req, res) => {
   console.log('Получен запрос:', req.body); // Логируем тело запроса

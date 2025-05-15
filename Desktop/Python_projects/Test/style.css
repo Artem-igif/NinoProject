@@ -39,7 +39,7 @@ div
     justify-content: center;
     align-items: center;
     border-radius: var(--radius);
-    width: 100%;
+    width: 50%;
     height: 200px;
 }
 

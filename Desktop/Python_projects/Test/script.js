@@ -1,12 +1,12 @@
-export let username = null
-export let email = null
+let username = null
+let email = null
 
 document.getElementById('LogInForm').addEventListener('submit', async (e) => {
     e.preventDefault()
 
     const formData = {
         email: e.target.email.value,
-        pass: e.target.password.value
+        password: e.target.password.value
     }
 
     const response = await fetch('http://localhost:3000/login', {
