@@ -16,8 +16,10 @@
     </nav>
     <div id="container"></div>
     <script>
+        let course = 'web';
+
         document.getElementById('home').addEventListener('click', async () => {
-            const response = await fetch('http://localhost:3000/exercices')
+            const response = await fetch(`http://localhost:3000/exercices/${course}`)
             const data = await response.json()
             const list = [...data]
             const container = document.getElementById('container')
@@ -26,18 +28,73 @@
                 console.log(data.error)
             }
 
-            container.textContent = list
+            container.innerHTML = list
               .map((el, index) => {
                 return `
-                <button id='${index}' class='play-buttons'><h2>Learn</h2></button>
+                <button id='${index + 1}' class='play-buttons' style='--content: "${el.course}"'><h2>${el.name}</h2></button>
                 `
               })
               .join('\n')
         })
 
-        document.querySelector('.play-buttons').addEventListener('click', async (e) => {
-            const buttonId = e.target.id
-            const response = await fetch(`http://localhost:3000/exercice/${buttonId}`)
+        document.querySelector('#container').addEventListener('click', async (e) => {
+            if (e.target.classList.contains('play-buttons')) {
+                const buttonId = e.target.id
+                const response = await fetch(`http://localhost:3000/exercices/${course}/${buttonId}`)
+                
+                const data = await response.json()
+                const list = [...data]
+
+                let current_index_lesson = 0
+                let current_lesson = list[current_index_lesson]
+
+                while (current_lesson <= list.length) {
+                    document.getElementById('continue').disabled = true
+                    document.getElementById('noAnswer').hidden = true
+                    current_lesson = list[current_index_lesson]
+                    console
+                    const container = `
+                      <div class='lesson'>
+                        <button id="exit">x</button>
+                        <div id='noAnswer'>This is not right</div>
+                        <div id="description">${current_lesson.description}<br />${current_lesson.lesson}</div>
+                        <div id="lesson">
+                           ${current_lesson.variants.map((el, index) => {
+                              return `<button class='variants' id='${index}'>${el}</button>`
+                           })}   
+                        </div>
+                        <button id='continue' disabled>Continue</button>
+                     </div>
+                    `
+                    document.getElementById('container').innerHTML = container
+
+                    document.getElementById('container').addEventListener('click', (e) => {
+                        if (e.target.classList.contains('variants')) {
+                            const varAnswer = e.target.id
+                            if (varAnswer === current_lesson.answer) {
+                                current_index_lesson++;
+                                document.getElementById('continue').disabled = false
+                                return;
+                            } else {
+                                document.getElementById('noAnswer').hidden = false
+                            }
+                        }
+                    })
+                }
+            } else if (e.target.classList.contains('courses')) {
+                course = e.target.id
+                console.log(course)
+            }
+        })
+
+        document.getElementById('courses').addEventListener('click', () => {
+            /*
+            * Choice The Course
+            */
+            buttonWeb = `<button id='web' class='courses'>Web</button><br />`
+            buttonPython = `<button id='python' class='courses'>Python (Backend)</button>`
+
+            document.getElementById('container').innerHTML = `${buttonWeb}${buttonPython}`
         })
     </script>
 </body>

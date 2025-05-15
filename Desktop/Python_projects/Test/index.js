@@ -1,4 +1,4 @@
-const express = require('express');
+express = require('express');
 const Database = require('better-sqlite3');
 const cors = require('cors');
 const app = express();
@@ -29,9 +29,17 @@ db1.exec(`
 )
 `)
 
-if (!db1.prepare(`SELECT * FROM exers`).all()) {
-  db.exec(`INSERT INTO exers (course, name, lessons) VALUES ('web', 'Введение', 3)`)
-}
+db1.exec(`
+  CREATE TABLE IF NOT EXISTS lessons (
+    id INTEGER,
+    course TEXT NOT NULL,
+    name TEXT NOT NULL,
+    exercice TEXT NOT NULL,
+    lesson TEXT NOT NULL,
+    variants TEXT NOT NULL
+  )
+`)
+
 
 app.post('/req', (req, res) => {
   console.log('Получен запрос:', req.body); // Логируем тело запроса
@@ -80,15 +88,32 @@ app.post('/login', (req, res) => {
     }
 })
 
-app.get('/exercices', (req, res) => {
-    const exs = db1.prepare(`SELECT * FROM exers`).all()
+app.get('/exercices/:course', (req, res) => {
+    const course = req.params.course
+    const exs = db1.prepare(`SELECT * FROM exers WHERE course = ?`).all(course)
 
     if (!exs) {
         res.status(404).json({ error: 'Not Found' })
         return;
     }
 
+    console.log(exs)
     res.status(200).json(exs)
+})
+
+app.get('/exercices/:course/:id', (req, res) => {
+  const course = req.params.course
+  const id = req.params.id
+  const lessons = db1.prepare(`SELECT * FROM lessons WHERE course = ? AND id = ?`).all(course, id)
+
+  if (lessons.count <= 0) { 
+    res.status(404).json({ error: 'No lesssons' })
+    return;
+  }
+
+  console.log(lessons)
+
+  res.status(200).json(lessons)
 })
 
 app.listen(3000, () => console.log('Сервер запущен на порту 3000'));
